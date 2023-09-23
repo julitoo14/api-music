@@ -1,0 +1,29 @@
+{
+  "name": "api-rest-musica",
+  "version": "1.0.0",
+  "description": "API RESTFULL Node, Express, MongoDB, JWT de musica",
+  "main": "]",
+  "scripts": {
+    "test": "NODE_ENV=test ./node_modules/.bin/mocha test/*.js",
+    "start": "nodemon index.js"
+  },
+  "author": "Julian Garcia Suarez",
+  "license": "MIT",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "jwt-simple": "^0.5.6",
+    "mongodb": "^6.1.0",
+    "mongoose": "^7.5.2",
+    "mongoose-pagination": "^1.0.0",
+    "multer": "^1.4.5-lts.1",
+    "validator": "^13.11.0"
+  },
+  "devDependencies": {
+    "chai": "^4.3.8",
+    "chai-http": "^4.4.0",
+    "mocha": "^10.2.0",
+    "nodemon": "^3.0.1"
+  }
+}
