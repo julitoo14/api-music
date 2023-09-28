@@ -33,7 +33,6 @@ const validate = (params) => {
   if (!name || !nick || !email || !password) {
     throw new Error("No se ha superado la validacion");
   } else {
-    console.log("Validacion completa");
     resultado = true;
   }
 
