@@ -65,7 +65,7 @@ const list = async (req, res)=> {
     page = req.params.page;
   }
   //definir elementos por pagina
-  const itemsPerPage = 5;
+  const itemsPerPage = 6;
   //find, ordernar y paginar
   try{
     const total = await Artist.countDocuments();
