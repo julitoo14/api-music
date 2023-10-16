@@ -6,6 +6,7 @@ const jwt = require("../helpers/jwt");
 const mongoose = require("mongoose");
 const fs = require("fs");
 const path = require("path");
+const { param } = require("../routes/song");
 //prueba
 const prueba = (req, res) => {
   return res.status(200).send({
@@ -28,7 +29,7 @@ const register = async (req, res) => {
   if (!params.name || !params.nick || !params.email || !params.password) {
     return res.status(400).send({
       status: "error",
-      message: "Faltan datos por enviar",
+      message: "missing required parameters",
     });
   }
   //validar datos
@@ -37,7 +38,7 @@ const register = async (req, res) => {
   } catch (error) {
     return res.status(400).send({
       status: "error",
-      message: "validacion no superada",
+      message: "validation didn't pass",
     });
   }
   //Controlar usuarios duplicados
@@ -53,7 +54,7 @@ const register = async (req, res) => {
     if (users && users.length >= 1) {
       return res.status(400).send({
         status: "error",
-        message: "El nick o el email ya estan registrados",
+        message: "These nick or email are already registered",
       });
     }
 
@@ -70,7 +71,7 @@ const register = async (req, res) => {
     if (!savedUser) {
       return res.status(500).send({
         status: "Error",
-        message: "Error al guardar el usuario en la base de datos",
+        message: "Failed to save user into database",
       });
     }
 
@@ -80,7 +81,7 @@ const register = async (req, res) => {
     delete userCreated.role;
 
     return res.status(200).send({
-      message: "Accion de registro de usuarios",
+      message: "User " + params.nick + " has been registered successfully. You will be redirected to Home page in 5 seconds",
       status: "success",
       user: userCreated,
     });
@@ -88,7 +89,7 @@ const register = async (req, res) => {
     console.log(err);
     return res.status(500).send({
       status: "error",
-      message: "Error en la consulta de usuarios",
+      message: err.message,
     });
   }
 }
@@ -111,7 +112,7 @@ const login = async (req, res) => {
   if (!user) {
     return res.status(400).send({
       status: "error",
-      message: "El email no esta registrado",
+      message: "Email isn't registered",
     });
   }
 
@@ -120,7 +121,7 @@ const login = async (req, res) => {
   if (!pwd) {
     return res.status(400).send({
       status: "error",
-      message: "Login incorrecto",
+      message: "Wrong credentials",
     });
   }
 
@@ -133,11 +134,15 @@ const login = async (req, res) => {
 
   //Devolver datos de usuario y token
   return res.status(200).send({
-    message: "Usuario logueado correctamente",
+    message: "User logged succesfully, Welcome " + user.name+"!",
     status: "success",
     user: identityUser,
     token,
   });
+}
+
+const signOut = async (req, res) => {
+  
 }
 
 const profile = async (req, res) => {
@@ -201,7 +206,7 @@ const update = async (req, res) => {
     //si ya existe devuelvo respuesta
     if(userIsSet){
       return res.status(400).send({
-        status: 'Success',
+        status: 'error',
         message: 'El usuario ya existe'
       });
     }

@@ -21,9 +21,9 @@ exports.auth = (req, res, next) => {
     try{
         //decode token
         let payload = jwt.decode(token, secret);
-
-        //check token expiration
-        if(payload.exp <= moment.unix()){
+        let utcTime = moment().utc();
+        const expDate = moment(payload.exp);
+        if(expDate <= moment()){
             return res.status(401).send({
                 stats: 'error',
                 message: 'Token expired'

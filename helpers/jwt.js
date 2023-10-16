@@ -5,7 +5,6 @@ const moment = require('moment');
 const secret = "CLAVE_SECRETA123123213";
 //crear funcion para generar tokens
 const createToken = (user) => {
-
     const payload = {
         id: user.id,
         name: user.name,
