@@ -58,9 +58,9 @@ const one = async (req, res) =>{
 
 const list = async (req, res) => {
   //sacar id del artista de la url
-  const albumId = req.params.albumId;
+  const artistId = req.params.artistId;
   //sacar todos los albums de la db de un artista en contreto
-  if(!albumId){
+  if(!artistId){
     return res.status(404).send({
       status: 'error',
       message: 'no se encontro el artista'
@@ -69,7 +69,7 @@ const list = async (req, res) => {
 
   try{
     // popular info del artista 
-    const albums = await Album.find({album: albumId}).populate({path: "artist"}).exec()
+    const albums = await Album.find({artist: artistId}).populate({path: "artist"}).sort('-year').exec()
     //devolver resultado
     return res.status(200).send({
       status: 'success',
@@ -196,6 +196,17 @@ const remove = async (req, res) => {
   try{
     const deletedAlbum = await Album.findByIdAndDelete(id);
     const deletedSongs = await Song.deleteMany({album: id});
+    const filePath = "./uploads/albums/" + deletedAlbum.image;
+
+    // delete the file
+    fs.unlink(filePath, (err) => {
+      if (err) {
+        console.error(err);
+        return;
+      }
+
+      console.log("File deleted successfully");
+    });
 
     if(!deletedAlbum) {
       return res.status(404).send({
