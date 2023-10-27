@@ -111,6 +111,16 @@ const remove = async (req, res) =>{
   const id = req.params.id;
   try{
     removedSong = await Song.findByIdAndDelete(id).exec();
+    const filePath = "./uploads/songs/" + removedSong.file;
+    // delete the file
+    fs.unlink(filePath, (err) => {
+      if (err) {
+        console.error(err);
+        return;
+      }
+
+      console.log(`File ${removedSong.file} deleted successfully`);
+    });
 
     if(!removedSong){
       return res.status(404).send({

@@ -20,11 +20,13 @@ const UserRoutes = require('./routes/user');
 const ArtistRoutes = require('./routes/artist');
 const SongRoutes = require('./routes/song');
 const AlbumRoutes = require('./routes/album');
+const PlaylistRoutes = require('./routes/playlist');
 
 app.use("/api/user",UserRoutes);
 app.use("/api/album",AlbumRoutes);
 app.use("/api/song",SongRoutes);
 app.use("/api/artist",ArtistRoutes); 
+app.use("/api/playlist", PlaylistRoutes);
 
 //ruta de pruebas
 app.get("/ruta-probando", (req, res) =>{

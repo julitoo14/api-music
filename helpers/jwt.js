@@ -14,7 +14,7 @@ const createToken = (user) => {
         email: user.email,
         image: user.image,
         iat: moment().unix(),
-        exp: moment().add(120, "minutes")
+        exp: moment().add(1440 , "minutes")
     };
 
     return jwt.encode(payload, secret);
