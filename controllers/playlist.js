@@ -80,9 +80,67 @@ const save = async (req, res) => {
     }
   }
 
+  const deleteSong = async (req, res) =>{
+    const songId = req.params.songId;
+    try{
+      const playlist = await Playlist.findOneAndUpdate(
+        { songs: songId },
+        { $pull: { songs: songId } },
+        { new: true }
+      );
+      return res.status(200).send({
+        status: "success",
+        playlist: playlist,
+        message: 'Se ha eliminado la cancion de la playlist'
+      });
+    }catch(err){
+      console.log(err);
+      return res.status(400).send({
+        status: "error",
+        message: err.message,
+      });
+    }
+  }
+
+  const deletePlaylist = async (req, res) =>{
+    const playlistId = req.params.playlistId;
+    try{
+      const playlist = await Playlist.findByIdAndDelete(playlistId);
+      return res.status(200).send({
+        status: "success",
+        playlist: playlist,
+        message: 'Se ha eliminado la playlist'
+      });
+    }catch(err){
+      console.log(err);
+      return res.status(400).send({
+        status: "error",
+        message: err.message,
+      });
+    }
+  }
+
+  const listAll = async (req, res) =>{
+    try{
+      const playlists = await Playlist.find().sort('created_at');
+      return res.status(200).send({
+        status: "success",
+        playlists: playlists,
+      });
+    }catch(err){
+      return res.status(400).send({
+        status: "error",
+        message: err.message,
+      });
+    }
+  }
+
   module.exports = {
     save,
     list,
     addSong,
-    songList
+    songList,
+    deleteSong,
+    deletePlaylist,
+    listAll
   }

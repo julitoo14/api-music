@@ -229,6 +229,29 @@ const upload = async (req, res) =>{
   }
 }
 
+const search = async (req, res) => {
+  const searchString = req.params.term;
+  try{
+    const songs = await Song.find({name: {$regex: searchString, $options: 'i'}}).exec();
+    if(!songs){
+      return res.status(404).send({
+        status: 'error',
+        message: 'No se han encontrado canciones'
+      })
+    }
+
+    return res.status(200).send({
+      status: 'success',
+      songs
+    })
+  }catch(err){
+    return res.status(500).send({
+      status: 'error',
+      message: err.message
+    })
+  }
+}
+
 module.exports = {
   prueba,
   save,
@@ -237,5 +260,6 @@ module.exports = {
   update,
   remove,
   file,
-  upload
+  upload,
+  search
 };
