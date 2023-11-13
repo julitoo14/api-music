@@ -119,14 +119,16 @@ const remove = async (req, res) => {
     const filePath = "./uploads/artists/" + artistDeleted.image;
 
     // delete the file
-    fs.unlink(filePath, (err) => {
-      if (err) {
-        console.error(err);
-        return;
-      }
-
-      console.log("File deleted successfully");
-    });
+    if(artistDeleted.image != 'default.png'){
+      fs.unlink(filePath, (err) => {
+        if (err) {
+          console.error(err);
+          return;
+        }
+        
+        console.log("File deleted successfully");
+      });
+    }
     return res.status(200).send({
       status: "success",
       message: "artist has been deleted",
@@ -192,8 +194,10 @@ const upload = async (req, res) => {
     extension != "gif"
   ) {
     // borrar archivo
+    if(image != 'default.png'){
     const filePath = req.file.path;
     const fileDeleted = fs.unlinkSync(filePath);
+    }
     //devolver error
     return res.status(400).send({
       status: "error",

@@ -175,8 +175,10 @@ const upload = async (req, res) =>{
   if(extension != 'png' && extension != 'jpg' && extension != 'jpeg' && extension != 'gif'){
 
     // borrar archivo
+    if(image != 'default.png'){
     const filePath = req.file.path;
     const fileDeleted = fs.unlinkSync(filePath);
+    }
     //devolver error
     return res.status(400).send({
       status: 'error',
@@ -222,6 +224,7 @@ const remove = async (req, res) => {
     const filePath = "./uploads/albums/" + deletedAlbum.image;
 
     // delete the file
+    if(deletedAlbum.image != 'default.png'){
     fs.unlink(filePath, (err) => {
       if (err) {
         console.error(err);
@@ -230,6 +233,7 @@ const remove = async (req, res) => {
 
       console.log("File deleted successfully");
     });
+  }
 
     if(!deletedAlbum) {
       return res.status(404).send({
