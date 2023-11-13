@@ -38,7 +38,7 @@ const register = async (req, res) => {
   } catch (error) {
     return res.status(400).send({
       status: "error",
-      message: "validation didn't pass",
+      message: error.message,
     });
   }
   //Controlar usuarios duplicados

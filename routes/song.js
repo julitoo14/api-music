@@ -27,7 +27,7 @@ router.get('/listByAlbum/:albumId', check.auth, songController.listByAlbum);
 router.put('/update/:id', check.auth, songController.update);
 router.delete('/remove/:id', check.auth, songController.remove);
 router.put('/upload/:id', [check.auth, uploads.single('file0')], songController.upload);
-router.get('/file/:file', check.auth, songController.file);
+router.get('/file/:file', check.authSong, songController.file);
 router.get('/search/:term', check.auth, songController.search);
 //exportar ruta
 module.exports = router;

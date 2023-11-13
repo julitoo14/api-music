@@ -84,6 +84,29 @@ const list = async (req, res) => {
   }
 }
 
+const search = async (req, res) => {
+  const searchString = req.params.term;
+  try{
+    const albums = await Album.find({title: {$regex: searchString, $options: 'i'}}).exec();
+    if(!albums){
+      return res.status(404).send({
+        status: 'error',
+        message: 'No se han encontrado albums'
+      })
+    }
+
+    return res.status(200).send({
+      status: 'success',
+      albums
+    })
+  }catch(err){
+    return res.status(500).send({
+      status: 'error',
+      message: err.message
+    })
+  }
+}
+
 const update = async (req, res) => {
   const albumId = req.params.id;
   const data = req.body;
@@ -237,5 +260,6 @@ module.exports = {
   update,
   upload,
   image,
-  remove
+  remove,
+  search
 };

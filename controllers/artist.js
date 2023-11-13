@@ -62,7 +62,7 @@ const list = async (req, res) => {
     page = req.params.page;
   }
   //definir elementos por pagina
-  const itemsPerPage = 8;
+  const itemsPerPage = 10;
   //find, ordernar y paginar
   try {
     const total = await Artist.countDocuments();
@@ -202,6 +202,12 @@ const upload = async (req, res) => {
   }
   //si es correcto, guardo en la bbdd
   try {
+    const artist = await Artist.findById(id);
+    if (artist.image != 'default.png') {
+      const filePath = `./uploads/artists/${artist.image}`;
+      fs.unlinkSync(filePath);
+    }
+
     let artistUpdated = await Artist.findOneAndUpdate(
       { _id: id },
       { image: req.file.filename },
