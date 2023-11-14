@@ -188,7 +188,6 @@ const upload = async (req, res) =>{
   const extension = songSplit[1];
   //comprobar extension
   if(extension != 'mp3'){
-
     // borrar archivo
     const filePath = req.file.path;
     const fileDeleted = fs.unlinkSync(filePath);
@@ -197,10 +196,16 @@ const upload = async (req, res) =>{
       status: 'error',
       message: 'La extension no es valida',
     })
-
   }
   //si es correcto, guardo en la bbdd
   try{
+
+    const song = await Song.findById(id);
+    if (song.file != 'default.mp3') {
+      const filePath = `./uploads/songs/${song.file}`;
+      fs.unlinkSync(filePath);
+    }
+
     let songUpdated = await Song.findOneAndUpdate({_id: id}, {file: req.file.filename}, {new:true})
     
     if(!songUpdated) {

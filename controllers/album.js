@@ -184,10 +184,15 @@ const upload = async (req, res) =>{
       status: 'error',
       message: 'La extension no es valida',
     })
-
   }
   //si es correcto, guardo en la bbdd
   try{
+    const album = await Album.findById(id);
+    if (album.file != 'default.png') {
+      const filePath = `./uploads/albums/${album.image}`;
+      fs.unlinkSync(filePath);
+    }
+
     let albumUpdated = await Album.findOneAndUpdate({_id: id}, {image: req.file.filename}, {new:true})
     
     if(!albumUpdated) {

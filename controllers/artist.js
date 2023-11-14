@@ -114,7 +114,6 @@ const remove = async (req, res) => {
   try {
     const artistDeleted = await Artist.findByIdAndDelete(id);
     const albumDeleted = await Album.deleteMany({ artist: id });
-    // Y si hay muchos albums??
     const songDeleted = await Song.deleteMany({ album: albumDeleted._id });
     const filePath = "./uploads/artists/" + artistDeleted.image;
 
