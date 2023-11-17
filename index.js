@@ -1,9 +1,9 @@
 //conexion a db
+require('dotenv').config();
 const connection = require('./database/connection');
 // dependencias
 const express = require('express');
 const cors = require('cors');
-require('dotenv').config();
 //welcome message
 console.log('API REST con NodeJs para app tipo Spotify')
 //conectar db
@@ -46,7 +46,7 @@ app.get("/ruta-probando", (req, res) =>{
 
 })
 //poner a escuchar peticiones http al servidor
-app.listen(port, () =>{
+app.listen(port,'0.0.0.0', () =>{
     console.log("Node Server listening on port " + port)
 })
 

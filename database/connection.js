@@ -3,7 +3,7 @@ var databaseName = 'Spotify';
 if(process.env.NODE_ENV === 'test'){
     databaseName = 'testdb'
 }
-const password = 'julito123';
+const password = process.env.PASSWORD;
 
 const connection = async() =>{
     try{
