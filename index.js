@@ -28,6 +28,7 @@ app.use("/api/album",AlbumRoutes);
 app.use("/api/song",SongRoutes);
 app.use("/api/artist",ArtistRoutes); 
 app.use("/api/playlist", PlaylistRoutes);
+app.use(express.static(path.join(__dirname, 'dist')));
 
 //ruta de pruebas
 app.get("/ruta-probando", (req, res) =>{
