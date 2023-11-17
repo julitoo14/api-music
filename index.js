@@ -2,6 +2,7 @@
 require('dotenv').config();
 const connection = require('./database/connection');
 // dependencias
+const path = require('path');
 const express = require('express');
 const cors = require('cors');
 //welcome message
