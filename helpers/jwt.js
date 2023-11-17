@@ -2,7 +2,7 @@ const jwt = require('jwt-simple');
 const moment = require('moment');
 
 //clave
-const secret = "CLAVE_SECRETA123123213";
+const secret = process.env.SECRET;
 //crear funcion para generar tokens
 const createToken = (user) => {
     const payload = {
