@@ -30,6 +30,9 @@ app.use("/api/song",SongRoutes);
 app.use("/api/artist",ArtistRoutes); 
 app.use("/api/playlist", PlaylistRoutes);
 app.use(express.static(path.join(__dirname, 'dist')));
+app.use('*', (req, res) => {
+    res.sendFile(path.join(__dirname, './dist/index.html'));
+});
 
 //ruta de pruebas
 app.get("/ruta-probando", (req, res) =>{
