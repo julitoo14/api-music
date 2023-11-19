@@ -56,6 +56,21 @@ const one = async (req, res) =>{
   //devolver respuesta
 }
 
+const randomList = async(req, res) => {
+  try{
+    const albums = await Album.aggregate([{ $sample: { size: 10 } }]);
+    return res.status(200).send({
+      status: 'success',
+      albums
+    })
+  }catch(err){
+    return res.status(500).send({
+      status: 'error',
+      message: err.message
+    })
+  }
+}
+
 const list = async (req, res) => {
   //sacar id del artista de la url
   const artistId = req.params.artistId;
@@ -270,5 +285,6 @@ module.exports = {
   upload,
   image,
   remove,
-  search
+  search,
+  randomList
 };
