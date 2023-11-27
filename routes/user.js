@@ -24,7 +24,7 @@ router.post('/register', userController.register)
 router.post('/login' , userController.login)
 router.get('/profile/:id', check.auth, userController.profile)
 router.put('/update', check.auth, userController.update)
-router.post('/upload', [check.auth, uploads.single('file0')], userController.upload)
+router.put('/upload', [check.auth, uploads.single('file0')], userController.upload)
 router.get('/avatar/:file', userController.avatar)
 //exportar ruta
 module.exports = router;

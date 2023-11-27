@@ -247,6 +247,8 @@ const update = async (req, res) => {
     //devolver respuesta
 
   }catch(error){
+
+    console.log(error);
     return res.status(500).send({
       status: 'error',
       message: 'Error en la consulta de usuarios'
