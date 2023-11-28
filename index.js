@@ -47,6 +47,11 @@ app.get("/ruta-probando", (req, res) =>{
     ]);
 
 })
+
+// Redirige cualquier solicitud que no coincida con una ruta estática al index.html.
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'dist', 'index.html'));
+  });
 //poner a escuchar peticiones http al servidor
 app.listen(port,'0.0.0.0', () =>{
     console.log("Node Server listening on port " + port)
