@@ -13,7 +13,11 @@ connection();
 const app = express();
 const port = 3910;
 //configurar cors
-app.use(cors());
+app.use(cors({
+    origin: 'https://juliangarciasuarez.tech', // Permite solicitudes desde tu dominio
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization']
+}));
 //convertir datos del body a objetos js
 app.use(express.json());
 app.use(express.urlencoded({ extended:true }));

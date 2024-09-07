@@ -11,7 +11,7 @@ const connection = async() =>{
         console.log('Connected to Database ' + databaseName);
     }catch(error){
         console.log(error);
-        throw new Error("No se ha establecido la conexion a la base de datos");
+        throw new Error("No se ha establecido la conexion a la base de datos" + error);
     }
 }
 
