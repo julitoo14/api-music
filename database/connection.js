@@ -4,10 +4,9 @@ if(process.env.NODE_ENV === 'test'){
     databaseName = 'testdb'
 }
 const password = process.env.PASSWORD;
-
 const connection = async() =>{
     try{
-        await mongoose.connect(`mongodb+srv://juuligarcia2208:${password}@spotify.6ckpon2.mongodb.net/?retryWrites=true&w=majority`,
+        await mongoose.connect(`mongodb+srv://juuligarcia2208:${password}@spotify.6ckpon2.mongodb.net/?retryWrites=true&w=majority&appName=Spotify`,
         {dbName: databaseName});
         console.log('Connected to Database ' + databaseName);
     }catch(error){
