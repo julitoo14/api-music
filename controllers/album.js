@@ -203,7 +203,8 @@ const upload = async (req, res) =>{
   //si es correcto, guardo en la bbdd
   try{
     const album = await Album.findById(id);
-    if (album.file != 'default.png') {
+    console.log(album);
+    if (album.image != 'default.png') {
       const filePath = `./uploads/albums/${album.image}`;
       fs.unlinkSync(filePath);
     }

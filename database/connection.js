@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 var databaseName = 'Spotify';
-if(process.env.NODE_ENV === 'test'){
+if(process.env.NODE_ENV === 'test' || process.env.NODE_ENV === 'development'){
     databaseName = 'testdb'
 }
 const password = process.env.PASSWORD;
